@@ -1,6 +1,6 @@
-import sequelize from './db'
+import sequelize from '../db'
 import {DataTypes} from "sequelize";
-import {ROLES} from "../types/model";
+import {ROLES} from "../types";
 
 const User = sequelize.define('user', {
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
@@ -75,4 +75,14 @@ DeviceInfo.belongsTo(Device)
 Type.belongsToMany(Brand, {through: TypeBrand})
 Brand.belongsToMany(Type, {through: TypeBrand})
 
-export {User, Rating, Basket, BasketDevice, Device, Type, TypeBrand, DataTypes, Brand, DeviceInfo}
+module.exports = {
+    User,
+    Basket,
+    BasketDevice,
+    Device,
+    Type,
+    Brand,
+    Rating,
+    TypeBrand,
+    DeviceInfo
+}

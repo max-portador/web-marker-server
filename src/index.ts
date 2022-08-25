@@ -1,11 +1,12 @@
-import Router from "./routes";
-
-require('dotenv').config()
-import cors = require("cors");
-import {Application, Request as RequestType, Response as ResponseType} from "express";
 const express = require('express')
-import sequelize from './model/db'
-import * as models from './model/models'
+require('dotenv').config()
+const cors = require("cors");
+const models = require('./model/models')
+
+import {Application, Request as RequestType, Response as ResponseType} from "express";
+import sequelize from './db'
+import Router from "./routes";
+import errorHandler from './middleware/ErrorHandlingMiddleWare'
 
 
 const PORT = process.env.PORT || 5556;
@@ -13,6 +14,7 @@ const app: Application = express();
 app.use(cors())
 app.use(express.json())
 app.use('/api', Router)
+app.use(errorHandler)
 
 app.get('/', (req: RequestType, res: ResponseType) => {
     res.status(200).json({message: 'WORKING!'})

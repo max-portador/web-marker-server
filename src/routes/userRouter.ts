@@ -6,6 +6,6 @@ const router: Application = new Router()
 
 router.post('/registration', userController.registration)
 router.post('/login', userController.login)
-router.get('/', userController.check)
+router.get('/auth', userController.check)
 
 export default router
