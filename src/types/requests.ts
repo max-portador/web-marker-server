@@ -1,5 +1,7 @@
 import {Request as RequestType} from "express";
+import {JwtPayload} from "./entities";
 
+export type RequestWithUser = RequestType<{}, {}, {}, {}, {user: JwtPayload}>
 export type RequestsWithQuery<T> = RequestType<{}, {}, {}, T>
 export type RequestWithQueryId = RequestsWithQuery<{id: number}>
 export type RequestDevices = RequestsWithQuery<DeviceQuery>

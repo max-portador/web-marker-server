@@ -1,7 +1,7 @@
 import {NextFunction, Request as RequestType, Response as ResponseType} from "express";
 import * as bcrypt from 'bcrypt';
 import * as jwt from 'jsonwebtoken';
-import {IUser, RequestCreateUser, RequestWithQueryId} from "../types";
+import {IUser, JwtPayload, RequestCreateUser, RequestWithQueryId, RequestWithUser} from "../types";
 import ApiError from "../error/ApiError";
 import {User, Basket} from '../model/models'
 
@@ -52,13 +52,11 @@ class UserController {
         res.json({token})
     };
 
-    async check(req: RequestWithQueryId, res: ResponseType, next: NextFunction) {
-            const {id} = req.query
-            if (!id){
-                return next(ApiError.badRequest('Не передан querry-параметр id'))
-            }
-
-            res.json({id})
+    async check(req: RequestType, res: ResponseType, next: NextFunction) {
+        //@ts-ignore
+            const { id, email, role } = req['user'] as unknown as JwtPayload
+            const token = generateJwt(id, email, role)
+            res.json({token})
     };
 }
 
