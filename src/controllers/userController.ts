@@ -1,9 +1,9 @@
 import {NextFunction, Request as RequestType, Response as ResponseType} from "express";
 import * as bcrypt from 'bcrypt';
 import * as jwt from 'jsonwebtoken';
-import {IUser, JwtPayload, RequestCreateUser, RequestWithQueryId, RequestWithUser} from "../types";
+import {IUser, JwtPayload, RequestCreateUser} from "../types";
 import ApiError from "../error/ApiError";
-import {User, Basket} from '../model/models'
+import {Basket, User} from '../model/models'
 
 const generateJwt = (id: number, email: string, role: string) => {
     return jwt.sign(
